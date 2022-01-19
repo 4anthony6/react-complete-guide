@@ -1,5 +1,5 @@
 import "./ExpenseForm.css";
-import React,{useState} from "react";
+import React, { useState } from "react";
 
 const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -62,56 +62,69 @@ const ExpenseForm = (props) => {
   };
 */
 
-const submitHandler = (event) => {
-  event.preventDefault(); // stops the default reload of the webpage after submit
+  const submitHandler = (event) => {
+    event.preventDefault(); // stops the default reload of the webpage after submit
 
-  const expenseData = {
-    title: enteredTitle,
-    amount: enteredAmount,
-    date: new Date(enteredDate)
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    //console.log(expenseData);//when form is submitted, we use value contained in states to "save" information on expenseData
+    props.onSaveExpenseData(expenseData); //event of newExpense
+    props.onHidePanel();
+
+    setEnteredTitle(""); // Sets back to an empty string after submission
+    setEnteredAmount("");
+    setEnteredDate("");
   };
+  console.log(props.panelState);
+  if (props.panelState) {
+    return (
+      <form onSubmit={submitHandler}>
+        <div className="new-expense__controls">
+          <div className="new-expense__control">
+            <label>Title</label>
+            <input
+              type="text"
+              value={enteredTitle}
+              onChange={titleChangeHandler}
+            />
+          </div>
+          <div className="new-expense__control">
+            <label>Amount</label>
+            <input
+              type="number"
+              min="0.01"
+              step="0.01"
+              value={enteredAmount} //changes the value after submission
+              onChange={amountChangeHandler}
+            />
+          </div>
+          <div className="new-expense__control">
+            <label>Date</label>
+            <input
+              type="date"
+              min="2020-31-12"
+              max="2030-31-12"
+              value={enteredDate}
+              onChange={dateChangeHandler}
+            />
+          </div>
+          <div className="new-expense__actions">
+            <button type="cancel">Cancel</button>
+          </div>
 
-  //console.log(expenseData);//when form is submitted, we use value contained in states to "save" information on expenseData
-  props.onSaveExpenseData(expenseData); //event of newExpense
-
-  setEnteredTitle(''); // Sets back to an empty string after submission
-  setEnteredAmount('');
-  setEnteredDate('');
-};
-
-  return (
-    <form onSubmit={submitHandler}>
-      <div className="new-expense__controls">
-        <div className="new-expense__control">
-          <label>Title</label>
-          <input type="text" value = {enteredTitle} onChange={titleChangeHandler} />
+          <div className="new-expense__actions">
+            <button type="submit">Add Expense</button>
+          </div>
         </div>
-        <div className="new-expense__control">
-          <label>Amount</label>
-          <input
-            type="number"
-            min="0.01"
-            step="0.01"
-            value= {enteredAmount} //changes the value after submission
-            onChange={amountChangeHandler}
-          />
-        </div>
-        <div className="new-expense__control">
-          <label>Date</label>
-          <input
-            type="date"
-            min="2020-31-12"
-            max="2030-31-12"
-            value= {enteredDate}
-            onChange={dateChangeHandler}
-          />
-        </div>
-        <div className="new-expense__actions">
-          <button type="submit">Add Expense</button>
-        </div>
-      </div>
-    </form>
-  );
+      </form>
+    );
+  } else {
+    return <form onSubmit={submitHandler}></form>;
+  }
 };
 
 export default ExpenseForm;

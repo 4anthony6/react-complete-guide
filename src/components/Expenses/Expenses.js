@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ExpenseItem from "./ExpenseItem";
+import ExpensesList from "./ExpensesList";
 import ExpensesFilter from "../Filters/ExpensesFilter";
 import Card from "../UI/Card";
 
@@ -15,7 +15,7 @@ const Expenses = (props) => {
   const filteredExpenses = props.items.filter((expense) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
-
+//in return code, we can abuse some JS trick, that allows us to return what is after the "&&" : {filteredExpenses.length === 0 && (<p>No Expense found .</p>)}
   return (
     <div>
       <Card className="expenses">
@@ -23,19 +23,8 @@ const Expenses = (props) => {
           selected={filteredYear} //pushing down the state value to Expenses Filter
           onChangeFilter={filterChangedHandler}
         />
-        {filteredExpenses.length === 0 && <p>No Expense found .</p> /* we abuse some JS trick, that allows us to return what is after the "&&"*/} 
-        {filteredExpenses.length === 0 ? (
-          <p>No Expense found !</p>
-        ) : (
-          filteredExpenses.map((expense) => (
-            <ExpenseItem
-              key={expense.id} // special prop that tells React how to identify each items
-              title={expense.title}
-              amount={expense.amount}
-              date={expense.date}
-            />
-          ))
-        )}
+        
+        <ExpensesList items={filteredExpenses}/>
       </Card>
     </div>
   );
