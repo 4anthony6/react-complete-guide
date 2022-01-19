@@ -1,7 +1,9 @@
-import Expenses from './components/Expenses/Expenses';
-import NewExpense from './components/NewExpense/NewExpense';
- const App = () => {
-  let expenses = [
+import React, { useState } from "react";
+
+import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
+const App = () => {
+  const DUMMY_EXPENSES = [
     {
       id: "e1",
       title: "Expense1",
@@ -21,19 +23,32 @@ import NewExpense from './components/NewExpense/NewExpense';
       amount: 543.2,
       date: new Date(2021, 6, 9),
     },
+    {
+      id: "e4",
+      title: "Expense4",
+      amount: 53.2,
+      date: new Date(2020, 6, 9),
+    },
   ];
 
-    const addExpenseHandler = (newSubmittedExpense) => {
-      console.log("in App.js");
-      console.log(expenses);
-    }
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
+  const addExpenseHandler = (newSubmittedExpense) => {
+    console.log("in App.js");
+    console.log();
+    setExpenses(
+      ((prevExpenses) => { // to update the state with the latest snapshot of the state, it's a best practice to use a lambda function like this, and put previous State as parameter
+        return [newSubmittedExpense, ...prevExpenses];
+      })
+    );
+  };
 
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses}  />
+      <Expenses items={expenses} />
     </div>
   );
-}
+};
 
 export default App;
