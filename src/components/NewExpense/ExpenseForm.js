@@ -113,7 +113,7 @@ const ExpenseForm = (props) => {
             />
           </div>
           <div className="new-expense__actions">
-            <button type="cancel">Cancel</button>
+            <button type="button" onClick= {props.onHidePanel}>Cancel</button> {/* 'cancel' type submits the form, so we can hide panel is submitHandler */ }
           </div>
 
           <div className="new-expense__actions">
