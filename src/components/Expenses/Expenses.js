@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ExpensesList from "./ExpensesList";
 import ExpensesFilter from "../Filters/ExpensesFilter";
+import ExpensesChart from "./ExpensesChart";
 import Card from "../UI/Card";
 
 import "./Expenses.css";
@@ -15,7 +16,7 @@ const Expenses = (props) => {
   const filteredExpenses = props.items.filter((expense) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
-//in return code, we can abuse some JS trick, that allows us to return what is after the "&&" : {filteredExpenses.length === 0 && (<p>No Expense found .</p>)}
+  //in return code, we can abuse some JS trick, that allows us to return what is after the "&&" : {filteredExpenses.length === 0 && (<p>No Expense found .</p>)}
   return (
     <div>
       <Card className="expenses">
@@ -23,8 +24,8 @@ const Expenses = (props) => {
           selected={filteredYear} //pushing down the state value to Expenses Filter
           onChangeFilter={filterChangedHandler}
         />
-        
-        <ExpensesList items={filteredExpenses}/>
+        <ExpensesChart expenses={filteredExpenses}/>
+        <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
   );

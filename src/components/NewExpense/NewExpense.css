@@ -1,10 +1,10 @@
 .new-expense {
-    background-color: #6fa7bd;
+    background-color: #ffffff;
     padding: 1rem;
     margin: 2rem auto;
     width: 50rem;
     max-width: 95%;
-    border-radius: 12px;
+    border-radius: 2px;
     text-align: center;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   }
@@ -13,8 +13,8 @@
     font: inherit;
     cursor: pointer;
     padding: 1rem 2rem;
-    border: 1px solid #05344e;
-    background-color: #0c3753;
+    border: 0px solid #234d85;
+    background-color: #0d67cf;
     color: white;
     border-radius: 12px;
     margin-right: 1rem;
@@ -22,8 +22,8 @@
   
   .new-expense button:hover,
   .new-expense button:active {
-    background-color: #065e74;
-    border-color: #00485d;
+    background-color: #20468b;
+    border-color: #20468b;
   }
   
   .new-expense button.alternative {
